@@ -1,0 +1,17 @@
+# This file describes a Fastly Compute@Edge package. To learn more visit:
+# https://developer.fastly.com/reference/fastly-toml/
+
+authors = [""]
+description = ""
+language = "javascript"
+manifest_version = 2
+name = "fastly-compute-test"
+service_id = ""
+
+[scripts]
+  build = "npm exec webpack && npm exec js-compute-runtime ./bin/index.js ./bin/main.wasm"
+
+[local_server]
+  [local_server.backends]
+    [local_server.backends.backend]
+      url="http://localhost"
