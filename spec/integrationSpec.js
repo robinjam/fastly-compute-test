@@ -12,12 +12,14 @@ describe("integration specs", () => {
   })
 
   it("strips UTM search params", async () => {
-    await fetch(`${baseUrl}/?utm_medium=social&foo=bar`)
+    const response = await fetch(`${baseUrl}/?utm_medium=social&foo=bar`)
+    expect(response.status).toBe(200)
     expect(lastBackendRequest.url).toEqual("/?foo=bar")
   })
 
   it("sorts URL search params", async () => {
-    await fetch(`${baseUrl}/?c=d&a=b`)
+    const response = await fetch(`${baseUrl}/?c=d&a=b`)
+    expect(response.status).toBe(200)
     expect(lastBackendRequest.url).toEqual("/?a=b&c=d")
   })
 })
