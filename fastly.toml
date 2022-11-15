@@ -14,4 +14,4 @@ service_id = ""
 [local_server]
   [local_server.backends]
     [local_server.backends.backend]
-      url="http://localhost"
+      url="http://localhost:8080"
