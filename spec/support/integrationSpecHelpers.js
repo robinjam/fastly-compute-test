@@ -21,10 +21,14 @@ export async function stopBackend() {
 }
 
 export async function startFastly() {
+  console.log("Starting Fastly development server...")
   fastlyProcess = spawn("fastly", ["compute", "serve"])
   await new Promise((resolve, reject) => {
-    fastlyProcess.addListener("exit", () => reject(new Error("Fastly process exited unexpectedly")))
-    fastlyProcess.stdout.addListener("data", (data) => {
+    fastlyProcess.addListener("exit", code => {
+      fastlyProcess = null
+      reject(new Error(`Fastly development server exited unexpectedly with code ${code}`))
+    })
+    fastlyProcess.stdout.addListener("data", data => {
       if (data.toString().includes(`Listening on ${baseUrl}`)) {
         resolve()
       }
@@ -35,6 +39,9 @@ export async function startFastly() {
 }
 
 export async function stopFastly() {
-  fastlyProcess.kill('SIGINT')
-  await new Promise(resolve => fastlyProcess.on('exit', resolve))
+  if (fastlyProcess !== null) {
+    fastlyProcess.kill('SIGINT')
+    const code = await new Promise(resolve => fastlyProcess.on('exit', resolve))
+    console.log(`\nFastly development server exited with code ${code}`)
+  }
 }

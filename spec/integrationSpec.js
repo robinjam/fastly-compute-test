@@ -4,12 +4,12 @@ describe("integration specs", () => {
   beforeAll(async () => {
     await startBackend()
     await startFastly()
-  }, 10000)
+  }, 30000)
 
   afterAll(async () => {
     await stopFastly()
     await stopBackend()
-  })
+  }, 10000)
 
   it("strips UTM search params", async () => {
     const response = await fetch(`${baseUrl}/?utm_medium=social&foo=bar`)
