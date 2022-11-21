@@ -10,5 +10,5 @@ async function handleRequest(event) {
   url.searchParams.keys().filter(k => k.toLowerCase().startsWith("utm_")).forEach(k => url.searchParams.delete(k))
   url.searchParams.sort()
 
-  return fetch(new Request(url, event.request), { backend: "backend" })
+  return fetch(new Request(url, event.request), { backend: "origin" })
 }

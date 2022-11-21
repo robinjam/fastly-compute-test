@@ -6,12 +6,12 @@ description = ""
 language = "javascript"
 manifest_version = 2
 name = "fastly-compute-test"
-service_id = ""
+service_id = "0yW7THGQHtorLIDxhrcWx4"
 
 [scripts]
   build = "npm exec webpack && npm exec js-compute-runtime ./bin/index.js ./bin/main.wasm"
 
 [local_server]
   [local_server.backends]
-    [local_server.backends.backend]
+    [local_server.backends.origin]
       url="http://localhost:8080"
